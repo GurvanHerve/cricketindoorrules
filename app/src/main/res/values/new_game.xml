@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="new_game_players">PLAYERS</string>
+    <string name="new_game_rules">RULES</string>
+    <string name="new_game_overs">OVERS</string>
+    <string name="new_game_save">SAVE</string>
+    <string name="new_game_play">PLAY</string>
+
+    <declare-styleable name="NewGameCellView">
+        <attr name="cellText" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="NewGameButton">
+        <attr name="buttonText" format="reference"/>
+    </declare-styleable>
+</resources>
