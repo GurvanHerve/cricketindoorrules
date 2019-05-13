@@ -8,7 +8,7 @@ import java.util.*
 @Entity(tableName="overs")
 class Overs {
     @PrimaryKey
-    private val uid = UUID.randomUUID()
+    var uid = UUID.randomUUID().toString()
 
     @ColumnInfo(name="overs_count")
     private var oversCount = 0

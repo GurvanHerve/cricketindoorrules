@@ -8,7 +8,7 @@ import java.util.*
 @Entity(tableName="team")
 class Team {
     @PrimaryKey
-    val uid = UUID.randomUUID()
+    var uid = UUID.randomUUID().toString()
 
     @ColumnInfo(name="name")
     var name = ""

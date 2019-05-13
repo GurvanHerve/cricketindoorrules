@@ -10,7 +10,7 @@ import java.util.*
 @ForeignKey(entity = Overs::class, parentColumns = ["uid"], childColumns = ["overs_uid"])
 class Game {
     @PrimaryKey
-    private val uid = UUID.randomUUID()
+    var uid = UUID.randomUUID().toString()
 
     @ColumnInfo(name="name")
     var name: String = ""

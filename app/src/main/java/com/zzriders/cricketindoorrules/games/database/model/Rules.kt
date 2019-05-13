@@ -7,5 +7,5 @@ import java.util.*
 @Entity(tableName="rules")
 class Rules {
     @PrimaryKey
-    private val uid = UUID.randomUUID()
+    var uid = UUID.randomUUID().toString()
 }
