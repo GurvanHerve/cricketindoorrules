@@ -12,8 +12,8 @@ interface OversRepository {
     @Query("SELECT * FROM overs WHERE uid LIKE :id")
     fun get(id: String) : Overs
 
-    @Query("SELECT game.overs FROM game WHERE game.uid LIKE :game")
-    fun get(game: Game) : Overs
+//    @Query("SELECT game.overs FROM game WHERE game.uid LIKE :game")
+//    fun get(game: Game) : Overs
 
     @Insert
     fun create(overs: Overs)

@@ -12,8 +12,8 @@ interface TeamRepository {
     @Query("SELECT * FROM team WHERE uid LIKE :id")
     fun get(id: String) : Team
 
-    @Query("SELECT game.team FROM game WHERE game.uid LIKE :game")
-    fun get(game: Game) : List<Team>
+//    @Query("SELECT game.team FROM game WHERE game.uid LIKE :game")
+//    fun get(game: Game) : List<Team>
 
     @Insert
     fun create(team: Team)

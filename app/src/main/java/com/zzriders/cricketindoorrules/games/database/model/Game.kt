@@ -6,8 +6,17 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName="game")
-@ForeignKey(entity = Overs::class, parentColumns = ["uid"], childColumns = ["overs_uid"])
+@Entity(tableName="game"
+//        foreignKeys = [
+//            ForeignKey(
+//                entity = Overs::class,
+//                parentColumns = ["uid"],
+//                childColumns = ["overs_uid"])
+//            ForeignKey(entity = Team::class,
+//                parentColumns = ["uid"],
+//                childColumns = ["team_uid"])
+//    ]
+)
 class Game {
     @PrimaryKey
     var uid = UUID.randomUUID().toString()
@@ -15,7 +24,8 @@ class Game {
     @ColumnInfo(name="name")
     var name: String = ""
 
-//    @ColumnInfo(name="team")
+//    @ColumnInfo(name="team_uid")
+//    val team: String = ""
 //    val team = mutableListOf<Team>()
 
     @ColumnInfo(name="overs_uid")
