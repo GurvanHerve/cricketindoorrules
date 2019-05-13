@@ -1,6 +1,9 @@
 package com.zzriders.cricketindoorrules.database
 
 import androidx.test.runner.AndroidJUnit4
+import com.zzriders.cricketindoorrules.games.database.AbsDatabase
+import com.zzriders.cricketindoorrules.games.database.model.Team
+import com.zzriders.cricketindoorrules.games.database.repositories.TeamRepository
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -8,7 +11,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class TeamRespositoryTest : RepositoryTest<TeamRepository>() {
-    override fun createRepository(db: Database): TeamRepository {
+    override fun createRepository(db: AbsDatabase): TeamRepository {
         return db.teamRepository()
     }
 
@@ -25,7 +28,7 @@ class TeamRespositoryTest : RepositoryTest<TeamRepository>() {
 
         assertEquals(team.uid, cursor.getString(cursor.getColumnIndex("uid")))
         assertEquals(team.name, cursor.getString(cursor.getColumnIndex("name")))
-        assertEquals(team.playersCount, cursor.getString(cursor.getColumnIndex("players_count")))
+        assertEquals(team.playersCount, cursor.getInt(cursor.getColumnIndex("players_count")))
     }
 
     @Test
@@ -33,7 +36,7 @@ class TeamRespositoryTest : RepositoryTest<TeamRepository>() {
         val team = team()
         repository.create(team)
 
-        val res = repository.get(team.uid.toString())
+        val res = repository.get(team.uid)
         assertNotNull(res)
         assertEquals(team.uid, res.uid)
         assertEquals(team.name, res.name)
@@ -54,9 +57,9 @@ class TeamRespositoryTest : RepositoryTest<TeamRepository>() {
         team.playersCount = 6
         repository.save(team)
 
-        assertEquals(1, db.query("SELECT * FROM team", null))
+        assertEquals(1, db.query("SELECT * FROM team", null).count)
 
-        val res = repository.get(team.uid.toString())
+        val res = repository.get(team.uid)
         assertNotNull(res)
         assertEquals(team.uid, res.uid)
         assertEquals(team.name, res.name)

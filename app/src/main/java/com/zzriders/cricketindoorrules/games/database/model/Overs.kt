@@ -11,8 +11,8 @@ class Overs {
     var uid = UUID.randomUUID().toString()
 
     @ColumnInfo(name="overs_count")
-    private var oversCount = 0
+    var oversCount = 0
 
     @ColumnInfo(name="bowls_count")
-    private var bowlsCount = 0
+    var bowlsCount = 0
 }
