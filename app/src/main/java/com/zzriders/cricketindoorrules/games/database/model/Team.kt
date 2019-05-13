@@ -13,6 +13,6 @@ class Team {
     @ColumnInfo(name="name")
     var name = ""
 
-    @ColumnInfo(name="count")
+    @ColumnInfo(name="players_count")
     var playersCount = 0
 }
