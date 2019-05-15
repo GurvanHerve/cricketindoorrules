@@ -8,8 +8,8 @@ import com.zzriders.cricketindoorrules.games.database.model.Game
 
 @Dao
 interface GameRepository {
-    @Query("SELECT * FROM game WHERE uid LIKE :id")
-    fun get(id: String): Game
+    @Query("SELECT * FROM game WHERE uid LIKE :uid")
+    fun get(uid: String): Game
 
     @Insert
     fun create(game: Game)
