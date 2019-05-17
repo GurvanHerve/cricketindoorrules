@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="players_number">Numbers of players</string>
+    <string name="team_one">Team 1</string>
+    <string name="team_two">Team 2</string>
+</resources>
