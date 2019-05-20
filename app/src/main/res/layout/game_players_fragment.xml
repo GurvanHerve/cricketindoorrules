@@ -15,8 +15,12 @@
             android:src="@drawable/ic_back"/>
 
     <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/players_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/players_back"
+            android:layout_marginTop="20dp"
             android:text="@string/players_number"
             android:textAllCaps="true"/>
 
@@ -26,7 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginTop="20dp"
-            app:title="@string/team_one"/>
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/players_title"
+            app:label="@string/team_one"/>
 
     <com.zzriders.cricketindoorrules.games.views.CounterView
             android:id="@+id/players_team_two"
@@ -34,13 +40,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="20dp"
-            app:title="@string/team_two"/>
+            android:layout_marginEnd="20dp"
+            android:layout_below="@id/players_title"
+            app:label="@string/team_two"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/players_ok"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/ok"/>
 

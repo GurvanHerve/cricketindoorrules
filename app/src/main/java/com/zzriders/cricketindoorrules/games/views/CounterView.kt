@@ -53,10 +53,11 @@ class CounterView : LinearLayout {
     private fun addIndicatorView(context: Context) {
         val params = LayoutParams(100.toPx(), 100.toPx())
         params.gravity = Gravity.CENTER_HORIZONTAL
+        params.topMargin = 20.toPx()
 
         indicator = AppCompatTextView(context)
-//        title.setText(title)
-        indicator.isAllCaps = true
+        indicator.gravity = Gravity.CENTER
+        indicator.setBackgroundResource(R.drawable.ic_rounded)
         addView(indicator, params)
     }
 
