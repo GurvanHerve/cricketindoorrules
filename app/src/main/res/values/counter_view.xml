@@ -2,6 +2,6 @@
 <resources>
 
     <declare-styleable name="CounterView">
-        <attr name="title" format="reference"/>
+        <attr name="label" format="reference"/>
     </declare-styleable>
 </resources>

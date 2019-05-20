@@ -29,7 +29,7 @@ class CounterView : LinearLayout {
         orientation = VERTICAL
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CounterView)
-        @StringRes val textRes = typedArray.getResourceId(R.styleable.CounterView_title, 0)
+        @StringRes val textRes = typedArray.getResourceId(R.styleable.CounterView_label, 0)
         typedArray.recycle()
 
         addTitleView(context, textRes)
@@ -42,10 +42,10 @@ class CounterView : LinearLayout {
         params.gravity = Gravity.CENTER_HORIZONTAL
         params.topMargin = 10.toPx()
 
-        val title = AppCompatTextView(context)
-//        title.setText(title)
-        title.isAllCaps = true
-        addView(title, params)
+        val titleView = AppCompatTextView(context)
+        titleView.setText(title)
+        titleView.isAllCaps = true
+        addView(titleView, params)
     }
 
     private lateinit var indicator: AppCompatTextView
