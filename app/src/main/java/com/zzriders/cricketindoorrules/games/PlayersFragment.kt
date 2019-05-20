@@ -41,8 +41,11 @@ class PlayersFragment : BaseFragment(), PlayersView {
         okView = view.players_ok
         okView.setOnClickListener{playersListener()?.onPlayersConfirmed(presenter.teamOne(), presenter.teamTwo())}
         teamOneView = view.players_team_one
-        teamOneView.counterListener = CounterListener {}
+        teamOneView.counterListener = counterTeamOneListener(presenter)
         teamTwoView = view.players_team_two
+        teamTwoView.counterListener = counterTeamTwoListener(presenter)
+
+        presenter.startPresenting()
     }
 
     override fun disableDecrementPlayerTeamOne(disable: Boolean) {
@@ -63,6 +66,30 @@ class PlayersFragment : BaseFragment(), PlayersView {
 
     override fun enableOk(enable: Boolean) {
         okView.isEnabled = enable
+    }
+
+    private fun counterTeamOneListener(presenter: PlayersPresenter) : CounterListener {
+        return object : CounterListener {
+            override fun onIncrementClicked() {
+                presenter.incrementPlayersCountTeamOne()
+            }
+
+            override fun onDecrementClicked() {
+                presenter.decrementPlayersCountTeamOne()
+            }
+        }
+    }
+
+    private fun counterTeamTwoListener(presenter: PlayersPresenter) : CounterListener {
+        return object : CounterListener {
+            override fun onIncrementClicked() {
+                presenter.incrementPlayersCountTeamTwo()
+            }
+
+            override fun onDecrementClicked() {
+                presenter.decrementPlayersCountTeamTwo()
+            }
+        }
     }
 
     private fun playersListener() : PlayersListener? {
