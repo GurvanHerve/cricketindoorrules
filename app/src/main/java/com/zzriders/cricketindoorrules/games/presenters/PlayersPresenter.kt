@@ -3,13 +3,21 @@ package com.zzriders.cricketindoorrules.games.presenters
 import com.zzriders.cricketindoorrules.games.database.model.Team
 import com.zzriders.cricketindoorrules.games.views.PlayersView
 
-class PlayersPresenter(val view: PlayersView, val teamOne: Team = Team(), val teamTwo: Team = Team()) {
+class PlayersPresenter(
+    private val view: PlayersView,
+    private val teamRepository: TeamRepository,
+    teamOneUid: String?,
+    teamTwoUid: String?) {
+
+    private val teamOne: Team = if (teamOneUid == null) Team() else teamRepository.get(teamOneUid)
+    private val teamTwo: Team = if (teamTwoUid == null) Team() else teamRepository.get(teamTwoUid)
 
     fun startPresenting() {
         view.setPlayerCountTeamOne(teamOne.playersCount.toString())
         view.setPlayerCountTeamTwo(teamTwo.playersCount.toString())
         view.disableDecrementPlayerTeamOne(teamOne.playersCount == 0)
         view.disableDecrementPlayerTeamTwo(teamTwo.playersCount == 0)
+        validateAndEnableOk()
     }
 
     fun incrementPlayersCountTeamOne() {

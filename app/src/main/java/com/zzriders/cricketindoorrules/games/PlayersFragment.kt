@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import com.zzriders.cricketindoorrules.R
+import com.zzriders.cricketindoorrules.games.database.AbsDatabase.Companion.database
 import com.zzriders.cricketindoorrules.games.database.model.Team
 import com.zzriders.cricketindoorrules.games.presenters.PlayersPresenter
 import com.zzriders.cricketindoorrules.games.views.CounterView
@@ -24,7 +25,11 @@ class PlayersFragment : BaseFragment(), PlayersView {
     private lateinit var presenter: PlayersPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = PlayersPresenter(this)
+
+        presenter = PlayersPresenter(this,
+            database(context!!).teamRepository(),
+            arguments?.getString("teamOneUid"),
+            arguments?.getString("teamTwoUid"))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
