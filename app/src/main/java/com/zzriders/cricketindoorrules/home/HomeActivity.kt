@@ -31,6 +31,14 @@ class HomeActivity : BaseActivity(), HomeFragment.HomeListener, NewGameFragment.
         showFragment(R.id.fragment_container, PlayersFragment(), true)
     }
 
+    override fun onPlayersDismissClicked() {
+        dismissFragment()
+    }
+
+    override fun onPlayersConfirmed(teamOne: Team, teamTwo: Team) {
+        showFragment(R.id.fragment_container, newGameFragment(), true)
+    }
+
     override fun onRulesClicked() {
         // todo show rules fragment
     }
