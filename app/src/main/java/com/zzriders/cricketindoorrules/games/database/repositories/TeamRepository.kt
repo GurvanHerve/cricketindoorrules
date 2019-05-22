@@ -12,8 +12,8 @@ interface TeamRepository {
     fun get(uid: String) : Team
 
     @Insert
-    fun create(team: Team)
+    fun create(team: Team) // todo bulk create
 
     @Update
-    fun save(team: Team)
+    fun save(team: Team) // todo bulk save
 }
