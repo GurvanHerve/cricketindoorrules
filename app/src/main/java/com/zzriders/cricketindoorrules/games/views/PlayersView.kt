@@ -6,4 +6,5 @@ interface PlayersView {
     fun setPlayerCountTeamOne(value: String)
     fun setPlayerCountTeamTwo(value: String)
     fun enableOk(enable: Boolean)
+    fun dismiss()
 }

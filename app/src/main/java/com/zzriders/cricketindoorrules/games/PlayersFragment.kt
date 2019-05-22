@@ -44,7 +44,9 @@ class PlayersFragment : BaseFragment(), PlayersView {
 
         view.players_back.setOnClickListener{playersListener()?.onPlayersDismissClicked()}
         okView = view.players_ok
-        okView.setOnClickListener{playersListener()?.onPlayersConfirmed(presenter.teamOne(), presenter.teamTwo())}
+        okView.setOnClickListener{
+            presenter.saveTeams()
+        }
         teamOneView = view.players_team_one
         teamOneView.counterListener = counterTeamOneListener(presenter)
         teamTwoView = view.players_team_two
@@ -71,6 +73,10 @@ class PlayersFragment : BaseFragment(), PlayersView {
 
     override fun enableOk(enable: Boolean) {
         okView.isEnabled = enable
+    }
+
+    override fun dismiss() {
+        playersListener()?.onPlayersConfirmed(presenter.teamOne(), presenter.teamTwo())
     }
 
     private fun counterTeamOneListener(presenter: PlayersPresenter) : CounterListener {

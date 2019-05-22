@@ -1,7 +1,10 @@
 package com.zzriders.cricketindoorrules.games.presenters
 
 import com.zzriders.cricketindoorrules.games.database.model.Team
+import com.zzriders.cricketindoorrules.games.database.repositories.TeamRepository
 import com.zzriders.cricketindoorrules.games.views.PlayersView
+import io.reactivex.Single.just
+import io.reactivex.schedulers.Schedulers
 
 class PlayersPresenter(
     private val view: PlayersView,
@@ -50,6 +53,15 @@ class PlayersPresenter(
 
     private fun validateAndEnableOk() {
         view.enableOk(teamOne.playersCount > 0 && teamTwo.playersCount > 0)
+    }
+
+    fun saveTeams() {
+        just({
+            teamRepository.create(teamOne)
+            teamRepository.create(teamTwo)
+        })
+            .subscribeOn(Schedulers.io())
+            .subscribe{it -> view.dismiss()}
     }
 
     fun teamOne() : Team {
