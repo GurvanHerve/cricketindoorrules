@@ -8,6 +8,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
+import com.zzriders.cricketindoorrules.R
 
 class NewGameButton : FrameLayout {
 

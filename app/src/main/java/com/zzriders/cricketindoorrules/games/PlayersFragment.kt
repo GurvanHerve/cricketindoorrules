@@ -22,6 +22,25 @@ class PlayersFragment : BaseFragment(), PlayersView {
         fun onPlayersConfirmed(teamOne: Team, teamTwo: Team)
     }
 
+    companion object {
+        private val kTEAM_ONE_UID = "teamOneUid"
+        private val kTEAM_TWO_UID = "teamTwoUid"
+
+        fun playersFragment() : BaseFragment {
+            return playersFragment(null, null)
+        }
+
+        fun playersFragment(teamOne: Team?, teamTwo: Team?) : BaseFragment {
+            val args = Bundle()
+            if (teamOne != null) args.putString(kTEAM_ONE_UID, teamOne.uid)
+            if (teamTwo != null) args.putString(kTEAM_TWO_UID, teamTwo.uid)
+
+            val fragment = PlayersFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     private lateinit var presenter: PlayersPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +95,7 @@ class PlayersFragment : BaseFragment(), PlayersView {
     }
 
     override fun dismiss() {
-        playersListener()?.onPlayersConfirmed(presenter.teamOne(), presenter.teamTwo())
+        playersListener()?.onPlayersConfirmed(presenter.teamOne, presenter.teamTwo)
     }
 
     private fun counterTeamOneListener(presenter: PlayersPresenter) : CounterListener {

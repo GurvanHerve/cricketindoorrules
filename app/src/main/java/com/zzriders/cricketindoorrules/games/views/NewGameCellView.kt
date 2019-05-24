@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
+import com.zzriders.cricketindoorrules.R
 import com.zzriders.cricketindoorrules.utils.toDp
 
 class NewGameCellView : LinearLayoutCompat {
