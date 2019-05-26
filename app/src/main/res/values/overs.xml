@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="number_overs">Numbers of overs</string>
+    <string name="overs">Overs</string>
+    <string name="bowls">Bowls</string>
+</resources>

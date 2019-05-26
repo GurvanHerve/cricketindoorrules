@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00FF00">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/overs_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_back"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/overs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/overs_back"
+            android:layout_marginTop="20dp"
+            android:text="@string/number_overs"
+            android:textAllCaps="true"/>
+
+    <com.zzriders.cricketindoorrules.games.views.CounterView
+            android:id="@+id/overs_counter"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/overs_title"
+            app:label="@string/overs"/>
+
+    <com.zzriders.cricketindoorrules.games.views.CounterView
+            android:id="@+id/bowls_counter"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_below="@id/overs_title"
+            app:label="@string/bowls"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/overs_ok"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/ok"/>
+
+</RelativeLayout>
