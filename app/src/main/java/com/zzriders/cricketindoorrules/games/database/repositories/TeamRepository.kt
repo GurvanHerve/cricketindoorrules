@@ -17,7 +17,4 @@ interface TeamRepository {
 
     @Update
     fun save(team: Team) // todo bulk save
-
-    @Query("SELECT COUNT (*) FROM team")
-    fun count() : Int
 }
