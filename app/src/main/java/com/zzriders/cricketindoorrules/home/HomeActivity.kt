@@ -15,7 +15,7 @@ class HomeActivity : BaseActivity(), HomeFragment.HomeListener, NewGameFragment.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
-        showFragment(R.id.fragment_container, HomeFragment(), false)
+        replaceFragment(R.id.fragment_container, HomeFragment(), false)
     }
 
     override fun onGameClicked() {

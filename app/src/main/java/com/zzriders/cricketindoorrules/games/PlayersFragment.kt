@@ -127,6 +127,8 @@ class PlayersFragment : BaseFragment(), PlayersView {
         }
     }
 
+    override fun getName() = "PlayersFragment"
+
     private fun playersListener() : PlayersListener? {
         return if (activity is PlayersListener) activity as PlayersListener else null
     }

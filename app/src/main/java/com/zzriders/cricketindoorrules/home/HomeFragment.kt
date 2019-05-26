@@ -24,6 +24,8 @@ class HomeFragment : BaseFragment() {
         view.home_new_type_game.setOnClickListener { homeListener()?.onNewTypeGameClicked() }
     }
 
+    override fun getName() = "HomeFragment"
+
     private fun homeListener() : HomeListener? {
         return if (activity is HomeListener) activity as HomeListener else null
     }
