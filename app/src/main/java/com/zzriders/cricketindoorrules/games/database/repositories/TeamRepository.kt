@@ -5,11 +5,12 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.zzriders.cricketindoorrules.games.database.model.Team
+import io.reactivex.Single
 
 @Dao
 interface TeamRepository {
     @Query("SELECT * FROM team WHERE uid LIKE :uid")
-    fun get(uid: String) : Team?
+    fun get(uid: String) : Single<Team?>
 
     @Insert
     fun create(team: Team) // todo bulk create
