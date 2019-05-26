@@ -98,6 +98,11 @@ class PlayersFragment : BaseFragment(), PlayersView {
         playersListener()?.onPlayersConfirmed(presenter.teamOne, presenter.teamTwo)
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.stopPresenting()
+    }
+
     private fun counterTeamOneListener(presenter: PlayersPresenter) : CounterListener {
         return object : CounterListener {
             override fun onIncrementClicked() {

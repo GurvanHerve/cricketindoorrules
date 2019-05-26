@@ -68,6 +68,11 @@ class NewGameFragment : BaseFragment(), GameView {
         view.new_game_play.setOnClickListener{newGameListener()?.onPlayClicked()}
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.stopPresenting()
+    }
+
     private fun newGameListener() : NewGameListener? {
         return if (activity is NewGameListener) activity as NewGameListener else null
     }

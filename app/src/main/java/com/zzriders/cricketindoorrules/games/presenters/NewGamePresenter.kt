@@ -40,4 +40,10 @@ class NewGamePresenter(
     fun save() {
 
     }
+
+    fun stopPresenting() {
+        disposable?.dispose()
+    }
+
+    private data class Wrapper(val teamOne: Team, val teamTwo: Team)
 }
