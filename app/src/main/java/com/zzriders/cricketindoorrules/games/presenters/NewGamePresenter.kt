@@ -1,12 +1,12 @@
 package com.zzriders.cricketindoorrules.games.presenters
 
-import android.util.Log
 import com.zzriders.cricketindoorrules.games.database.model.Team
 import com.zzriders.cricketindoorrules.games.database.repositories.GameRepository
 import com.zzriders.cricketindoorrules.games.database.repositories.TeamRepository
 import com.zzriders.cricketindoorrules.games.views.GameView
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.Single.zip
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 class NewGamePresenter(
@@ -20,24 +20,20 @@ class NewGamePresenter(
         private set
     var teamTwo: Team? = null
         private set
+    private lateinit var disposable: Disposable
     init {
 
-        Log.d("echo", "NewGamePresenter -- teamOneUid: " + teamOneUid)
-        Log.d("echo", "NewGamePresenter -- teamTwoUid: " + teamTwoUid)
-
-
-        if (teamOneUid != null) {
-            Single.create<Team?>{teamRepository.get(teamOneUid)}
+        if (teamOneUid != null && teamTwoUid != null) {
+            disposable = zip(
+                teamRepository.get(teamOneUid),
+                teamRepository.get(teamTwoUid),
+                BiFunction { t1: Team?, t2: Team? -> Wrapper(t1!!, t2!!) }
+            )
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { team -> teamOne = team ?: Team() }
-        }
-
-        if (teamTwoUid != null) {
-            Single.create<Team?>{teamRepository.get(teamTwoUid)}
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { team -> teamTwo = team ?: Team() }
+                .subscribe { wrapper ->
+                    teamOne = wrapper.teamOne
+                    teamTwo = wrapper.teamTwo
+                }
         }
     }
 

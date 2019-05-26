@@ -1,13 +1,14 @@
 package com.zzriders.cricketindoorrules.games.presenters
 
-import android.util.Log
 import com.zzriders.cricketindoorrules.games.database.model.Team
 import com.zzriders.cricketindoorrules.games.database.repositories.TeamRepository
 import com.zzriders.cricketindoorrules.games.views.PlayersView
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.Single.just
 import io.reactivex.Single.zip
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
@@ -21,43 +22,30 @@ class PlayersPresenter(
         private set
     lateinit var teamTwo: Team
         private set
+    private val compositeDisposable = CompositeDisposable()
 
     fun startPresenting() {
-        Log.d("echo", "PlayerPresenter -- teamOneUid: " + teamOneUid)
-        Log.d("echo", "PlayerPresenter -- teamTwoUid: " + teamTwoUid)
-        if (teamOneUid == null || teamTwoUid == null) {
-            teamOne = Team()
-            teamTwo = Team()
-
+        val req: Single<Wrapper>
+        req = if (teamOneUid == null || teamTwoUid == null) {
+            just(Wrapper(Team(), Team()))
+        } else {
+            zip(
+                teamRepository.get(teamOneUid),
+                teamRepository.get(teamTwoUid),
+                BiFunction { t1: Team?, t2: Team? ->  Wrapper(t1, t2)}
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        }
+        compositeDisposable.add(req.subscribe{ wrapper ->
+            teamOne = wrapper.teamOne
+            teamTwo = wrapper.teamTwo
             view.setPlayerCountTeamOne(teamOne.playersCount.toString())
             view.setPlayerCountTeamTwo(teamTwo.playersCount.toString())
             view.disableDecrementPlayerTeamOne(teamOne.playersCount == 0)
             view.disableDecrementPlayerTeamTwo(teamTwo.playersCount == 0)
             validateAndEnableOk()
-        } else {
-            zip(
-                team(teamOneUid),
-                team(teamTwoUid),
-                BiFunction { t1: Team?, t2: Team? ->  Wrapper(t1, t2)}
-            )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{ wrapper ->
-                    run {
-                        teamOne = wrapper.teamOne
-                        teamTwo = wrapper.teamTwo
-                        view.setPlayerCountTeamOne(teamOne.playersCount.toString())
-                        view.setPlayerCountTeamTwo(teamTwo.playersCount.toString())
-                        view.disableDecrementPlayerTeamOne(teamOne.playersCount == 0)
-                        view.disableDecrementPlayerTeamTwo(teamTwo.playersCount == 0)
-                        validateAndEnableOk()
-                    }
-                }
-        }
-    }
-
-    private fun team(teamUid: String) : Single<Team?> {
-        return Single.create {teamRepository.get(teamUid)}
+        })
     }
 
     fun incrementPlayersCountTeamOne() {
@@ -93,23 +81,22 @@ class PlayersPresenter(
     }
 
     fun saveTeams() {
-        Single.create<Any>{teamRepository.create(teamOne)}
-            .zipWith(Single.create<Any>{teamRepository.create(teamTwo)}, BiFunction {
-                return null
-        })
-            .su
-
-
-        just({
-
-
-            Log.d("echo", "PlayersPresenter.count: " + teamRepository.count())
-        })
-            .subscribeOn(Schedulers.io())
-            .subscribe{_it -> view.dismiss()}
+        compositeDisposable.add(
+            Completable.fromAction {
+                teamRepository.create(teamOne)
+                teamRepository.create(teamTwo)
+            }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{  view.dismiss() }
+        )
     }
 
-    private class Wrapper(t1: Team?, t2: Team?) {
+    fun stopPresenting() {
+        compositeDisposable.clear()
+    }
+
+    private data class Wrapper(val t1: Team?, val t2: Team?) {
         val teamOne = t1?: Team()
         val teamTwo = t2?: Team()
     }
