@@ -5,11 +5,18 @@ import com.zzriders.cricketindoorrules.BaseActivity
 import com.zzriders.cricketindoorrules.R
 import com.zzriders.cricketindoorrules.games.NewGameFragment
 import com.zzriders.cricketindoorrules.games.NewGameFragment.Companion.newGameFragment
+import com.zzriders.cricketindoorrules.games.OversFragment
+import com.zzriders.cricketindoorrules.games.OversFragment.Companion.oversFragment
 import com.zzriders.cricketindoorrules.games.PlayersFragment
 import com.zzriders.cricketindoorrules.games.PlayersFragment.Companion.playersFragment
+import com.zzriders.cricketindoorrules.games.database.model.Overs
 import com.zzriders.cricketindoorrules.games.database.model.Team
 
-class HomeActivity : BaseActivity(), HomeFragment.HomeListener, NewGameFragment.NewGameListener, PlayersFragment.PlayersListener {
+class HomeActivity : BaseActivity(),
+    HomeFragment.HomeListener,
+    NewGameFragment.NewGameListener,
+    PlayersFragment.PlayersListener,
+    OversFragment.OversListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,19 +30,19 @@ class HomeActivity : BaseActivity(), HomeFragment.HomeListener, NewGameFragment.
     }
 
     override fun onNewTypeGameClicked() {
-        showFragment(R.id.fragment_container, newGameFragment(), true)
+        replaceFragment(R.id.fragment_container, newGameFragment(), true)
     }
 
     override fun onNewGmeBackClicked() {
-        dismissFragment()
+        dismissDisplayedFragment()
     }
 
     override fun onPlayersClicked(teamOne: Team?, teamTwo: Team?) {
-        showFragment(R.id.fragment_container, playersFragment(teamOne, teamTwo), true)
+        addFragment(R.id.fragment_container, playersFragment(teamOne, teamTwo), true)
     }
 
     override fun onPlayersDismissClicked() {
-        dismissFragment()
+        dismissDisplayedFragment()
     }
 
     override fun onPlayersConfirmed(teamOne: Team, teamTwo: Team) {
