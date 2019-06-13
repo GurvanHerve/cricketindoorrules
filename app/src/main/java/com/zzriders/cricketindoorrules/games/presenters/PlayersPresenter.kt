@@ -3,10 +3,8 @@ package com.zzriders.cricketindoorrules.games.presenters
 import com.zzriders.cricketindoorrules.games.database.model.Team
 import com.zzriders.cricketindoorrules.games.database.repositories.TeamRepository
 import com.zzriders.cricketindoorrules.games.views.PlayersView
-import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.Single.just
-import io.reactivex.Single.zip
+import io.reactivex.Single.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
@@ -82,14 +80,21 @@ class PlayersPresenter(
 
     fun saveTeams() {
         compositeDisposable.add(
-            Completable.fromAction {
-                teamRepository.create(teamOne)
-                teamRepository.create(teamTwo)
-            }
+            concat(saveOrCreate(teamRepository, teamOne),
+                saveOrCreate(teamRepository, teamTwo))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{  view.dismiss() }
+                .subscribe { view.dismiss() }
         )
+    }
+
+//    concat(teamRepository.get(teamOne.uid).map { team: Team? -> if (team != null) teamRepository.save(teamOne) else teamRepository.create(teamOne) }
+//    , teamRepository.get(teamTwo.uid).map { team: Team? -> if (team != null) teamRepository.save(teamTwo) else teamRepository.create(teamTwo) })
+
+    private fun saveOrCreate(repository: TeamRepository, team: Team) : Single<Any> {
+        return repository.get(team.uid)
+            .map { t: Team? -> t == null }
+            .map { teamOneExist -> if (teamOneExist) teamRepository.save(team) else teamRepository.create(team) }
     }
 
     fun stopPresenting() {
