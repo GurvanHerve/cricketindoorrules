@@ -80,8 +80,8 @@ class PlayersPresenter(
 
     fun saveTeams() {
         compositeDisposable.add(
-            concat(saveOrCreate(teamRepository, teamOne),
-                saveOrCreate(teamRepository, teamTwo))
+            concat(teamRepository.create(teamOne),
+                teamRepository.create(teamTwo))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { view.dismiss() }
@@ -91,10 +91,10 @@ class PlayersPresenter(
 //    concat(teamRepository.get(teamOne.uid).map { team: Team? -> if (team != null) teamRepository.save(teamOne) else teamRepository.create(teamOne) }
 //    , teamRepository.get(teamTwo.uid).map { team: Team? -> if (team != null) teamRepository.save(teamTwo) else teamRepository.create(teamTwo) })
 
-    private fun saveOrCreate(repository: TeamRepository, team: Team) : Single<Any> {
+    private fun saveOrCreate(repository: TeamRepository, team: Team) : Single<Team?> {
         return repository.get(team.uid)
-            .map { t: Team? -> t == null }
-            .map { teamOneExist -> if (teamOneExist) teamRepository.save(team) else teamRepository.create(team) }
+//            .doOnError { exception -> if (exception is EmptyResultSetException) teamRepository.create(team) }
+//            .doOnSuccess { teamRepository.save(team) }
     }
 
     fun stopPresenting() {
