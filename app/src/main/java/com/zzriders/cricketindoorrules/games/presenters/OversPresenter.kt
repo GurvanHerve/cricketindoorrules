@@ -72,9 +72,7 @@ class OversPresenter(
 
     fun saveOvers() {
         compositeDisposable.add(
-            Completable.fromAction {
-                oversRepository.create(overs)
-            }
+            Completable.fromAction { oversRepository.create(overs) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe{  view.dismiss() }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rules">Rules</string>
+    
+    <string name="bonus_runs">Bonus runs</string>
+    <string name="dismissals">Dismissals</string>
+
+    <string name="front_net_title">Front net</string>
+    <string name="front_net_description">behind the keeper</string>
+    <string name="side_nets_stricker_title">Side nets - stricker</string>
+    <string name="side_nets_stricker_description">between the stricker\'s end and halfway down the pitch</string>
+    <string name="side_nets_bowlers_title">Side nets - bowlers</string>
+    <string name="side_nets_bowlers_description">between halfway and the bowlers end</string>
+    <string name="back_net_on_the_bounce_title">Back net on the bounce</string>
+    <string name="back_net_on_the_bounce_description">Behind the bowler</string>
+    <string name="back_net_on_the_full_title">Back net on the full</string>
+    <string name="back_net_on_the_full_description">Behind the bowler</string>
+    <string name="touch_wall_title">Touch wall</string>
+    <string name="_description">Behind the bowler</string>
+    <string name="lbw_and_mankad_title">Lbw and Mankad</string>
+    <string name="lbw_and_mankad_description">behind the keeper</string>
+    <string name="break_the_stumps_title">Break The Stumps</string>
+    <string name="break_the_stumps_description">Between the stricker\'s end and halfway down the pitch</string>
+    <string name="touch_the_ceiling_title">Touch the ceiling</string>
+    <string name="touch_the_ceiling">Between halfway end and the bowlers end</string>
+    <string name="caught_title">Caught</string>
+    <string name="caught_description">Behind the bowler</string>
+    <string name="wide_title">Wide</string>
+    <string name="wide_description">Behind the bowler</string>
+    <string name="no_ball_title">No-ball</string>
+    <string name="no_ball_description">Behind the bowler</string>
+</resources>

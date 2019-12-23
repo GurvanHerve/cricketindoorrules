@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/rules_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_back"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/rules_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/rules_back"
+            android:layout_marginTop="20dp"
+            android:text="@string/rules"
+            android:textAllCaps="true"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/rules_ok"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/ok"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rules_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rules_title"
+            android:layout_above="@id/rules_ok"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"/>
+
+</RelativeLayout>

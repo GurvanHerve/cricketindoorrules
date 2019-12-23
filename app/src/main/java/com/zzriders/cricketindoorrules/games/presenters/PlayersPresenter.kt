@@ -3,6 +3,7 @@ package com.zzriders.cricketindoorrules.games.presenters
 import com.zzriders.cricketindoorrules.games.database.model.Team
 import com.zzriders.cricketindoorrules.games.database.repositories.TeamRepository
 import com.zzriders.cricketindoorrules.games.views.PlayersView
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.Single.*
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -80,21 +81,14 @@ class PlayersPresenter(
 
     fun saveTeams() {
         compositeDisposable.add(
-            concat(teamRepository.create(teamOne),
-                teamRepository.create(teamTwo))
+            Completable.fromAction {
+                teamRepository.create(teamOne)
+                teamRepository.create(teamTwo)
+            }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { view.dismiss() }
         )
-    }
-
-//    concat(teamRepository.get(teamOne.uid).map { team: Team? -> if (team != null) teamRepository.save(teamOne) else teamRepository.create(teamOne) }
-//    , teamRepository.get(teamTwo.uid).map { team: Team? -> if (team != null) teamRepository.save(teamTwo) else teamRepository.create(teamTwo) })
-
-    private fun saveOrCreate(repository: TeamRepository, team: Team) : Single<Team?> {
-        return repository.get(team.uid)
-//            .doOnError { exception -> if (exception is EmptyResultSetException) teamRepository.create(team) }
-//            .doOnSuccess { teamRepository.save(team) }
     }
 
     fun stopPresenting() {
