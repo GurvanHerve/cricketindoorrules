@@ -20,8 +20,7 @@ class OversPresenter(
     private val compositeDisposable = CompositeDisposable()
 
     fun startPresenting() {
-        val req: Single<Overs>
-        req = if (oversUid == null) {
+        val req: Single<Overs> = if (oversUid == null) {
             just(Overs())
         } else {
             oversRepository.get(oversUid)

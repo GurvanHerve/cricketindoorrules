@@ -1,7 +1,7 @@
 package com.zzriders.cricketindoorrules.games.views
 
-import com.zzriders.cricketindoorrules.games.adapters.RulesAdaptee
+import com.zzriders.cricketindoorrules.games.adapters.AbsRulesAdaptee
 
 interface RulesView {
-    fun displayRules(rules: List<RulesAdaptee>)
+    fun displayRules(rules: List<AbsRulesAdaptee>)
 }
